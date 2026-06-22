@@ -4,15 +4,80 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Daily Reflections — Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div class="bg-bubbles" aria-hidden="true">
+  <span class="bubble b1"></span>
+  <span class="bubble b2"></span>
+  <span class="bubble b3"></span>
+  <span class="bubble b4"></span>
+  <span class="bubble b5"></span>
+  <span class="bubble b6"></span>
+  <span class="bubble b7"></span>
+  <span class="bubble b8"></span>
+</div>
+
+<!-- HOME / LANDING SCREEN -->
+<div id="homeScreen" class="home-screen">
+  <div class="home-panel home-panel-dark">
+    <div class="home-panel-inner">
+      <h1 class="home-title" data-i18n="appTitle">Daily Reflections</h1>
+      <p class="home-tagline" data-i18n="homeTaglineDark">Track your moods. Reflect on your days. Grow at your own pace.</p>
+      <button id="homeSignUpBtn" type="button" class="home-btn home-btn-light" data-i18n="signUpBtn">Sign Up</button>
+    </div>
+  </div>
+  <div class="home-panel home-panel-light">
+    <div class="home-panel-inner">
+      <h1 class="home-title" data-i18n="appTitle">Daily Reflections</h1>
+      <p class="home-tagline" data-i18n="homeTaglineLight">Already journaling with us? Welcome back.</p>
+      <button id="homeLogInBtn" type="button" class="home-btn home-btn-dark" data-i18n="logInBtn">Log In</button>
+    </div>
+  </div>
+  <button id="homeGuestBtn" type="button" class="home-guest-link" data-i18n="continueAsGuest">Continue as Guest</button>
+</div>
+
+<div id="appShell" class="hidden">
 <header class="app-header">
-  <h1>Daily Reflections</h1>
+  <div class="header-top">
+    <h1 data-i18n="appTitle">Daily Reflections</h1>
+    <div class="header-actions">
+      <div class="lang-dropdown">
+        <button id="langToggleBtn" class="theme-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="langCurrentFlag">🌐</span> <span data-i18n="langBtnLabel">Language</span> ▾
+        </button>
+        <div id="langMenu" class="theme-menu lang-menu hidden"></div>
+      </div>
+
+      <div class="theme-dropdown">
+        <button id="themeToggleBtn" class="theme-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          🎨 <span data-i18n="themeBtnLabel">Theme</span> ▾
+        </button>
+        <div id="themeMenu" class="theme-menu hidden">
+          <button type="button" data-theme="light">☀️ <span data-i18n="themeLight">Light</span></button>
+          <button type="button" data-theme="dark">🌙 <span data-i18n="themeDark">Dark</span></button>
+          <button type="button" data-theme="invert">🌗 <span data-i18n="themeInvert">Photonegative</span></button>
+          <button type="button" data-theme="multicolor">🌈 <span data-i18n="themeMulticolor">Multi-color</span></button>
+        </div>
+      </div>
+
+      <div id="authButtons" class="auth-buttons">
+        <button id="signUpBtn" class="auth-btn" type="button" data-i18n="signUpBtn">Sign Up</button>
+        <button id="logInBtn" class="auth-btn outline" type="button" data-i18n="logInBtn">Log In</button>
+      </div>
+      <div id="userBadge" class="user-badge hidden">
+        <span id="welcomeText"></span>
+        <button id="logOutBtn" class="auth-btn outline" type="button" data-i18n="logOutBtn">Log Out</button>
+      </div>
+    </div>
+  </div>
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="entry">Write</button>
-    <button class="tab-btn" data-tab="history">History &amp; Reflection</button>
-    <button class="tab-btn" data-tab="settings">Settings</button>
+    <button class="tab-btn active" data-tab="entry" data-i18n="tabWrite">Write</button>
+    <button class="tab-btn" data-tab="history" data-i18n="tabHistory">History &amp; Reflection</button>
+    <button class="tab-btn" data-tab="settings" data-i18n="tabSettings">Settings</button>
   </nav>
 </header>
 
@@ -20,21 +85,21 @@
   <!-- WRITE TAB -->
   <section id="tab-entry" class="tab-panel active">
     <div class="card progress-card">
-      <h2>Today's Progress</h2>
+      <h2 data-i18n="progressTitle">Today's Progress</h2>
       <p id="progressSummary">Loading...</p>
       <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
     </div>
 
     <div class="card">
-      <h2>New Entry</h2>
+      <h2 data-i18n="newEntryTitle">New Entry</h2>
       <p class="muted" id="timeFrameHint"></p>
-      <textarea id="entryText" placeholder="How are you feeling? What happened today?" rows="8"></textarea>
-      <button id="submitEntry" class="primary-btn">Save Entry</button>
+      <textarea id="entryText" data-i18n-placeholder="entryPlaceholder" placeholder="How are you feeling? What happened today?" rows="8"></textarea>
+      <button id="submitEntry" class="primary-btn" data-i18n="saveEntryBtn">Save Entry</button>
     </div>
 
     <div id="resultCard" class="card hidden">
-      <h2>Reflection on this entry</h2>
-      <p>Predominant emotion detected: <strong id="resultEmotion"></strong></p>
+      <h2 data-i18n="reflectionTitle">Reflection on this entry</h2>
+      <p><span data-i18n="predominantLabel">Predominant emotion detected:</span> <strong id="resultEmotion"></strong></p>
       <div id="resultStrategies"></div>
     </div>
   </section>
@@ -42,24 +107,24 @@
   <!-- HISTORY TAB -->
   <section id="tab-history" class="tab-panel">
     <div class="card">
-      <h2>Filter</h2>
-      <label for="filterTimeFrame">Time of day:</label>
+      <h2 data-i18n="filterTitle">Filter</h2>
+      <label for="filterTimeFrame" data-i18n="timeOfDayLabel">Time of day:</label>
       <select id="filterTimeFrame">
-        <option value="all">All</option>
-        <option value="Morning">Morning</option>
-        <option value="Afternoon">Afternoon</option>
-        <option value="Evening">Evening</option>
-        <option value="Night">Night</option>
+        <option value="all" data-i18n="timeAll">All</option>
+        <option value="Morning" data-i18n="timeMorning">Morning</option>
+        <option value="Afternoon" data-i18n="timeAfternoon">Afternoon</option>
+        <option value="Evening" data-i18n="timeEvening">Evening</option>
+        <option value="Night" data-i18n="timeNight">Night</option>
       </select>
     </div>
 
     <div class="card">
-      <h2>Emotion Trend</h2>
+      <h2 data-i18n="emotionTrendTitle">Emotion Trend</h2>
       <div id="emotionTrend" class="trend-chart"></div>
     </div>
 
     <div class="card">
-      <h2>Compare Two Entries</h2>
+      <h2 data-i18n="compareTitle">Compare Two Entries</h2>
       <div class="compare-pickers">
         <select id="compareA"></select>
         <select id="compareB"></select>
@@ -68,7 +133,7 @@
     </div>
 
     <div class="card">
-      <h2>All Entries</h2>
+      <h2 data-i18n="allEntriesTitle">All Entries</h2>
       <div id="entryList"></div>
     </div>
   </section>
@@ -76,30 +141,159 @@
   <!-- SETTINGS TAB -->
   <section id="tab-settings" class="tab-panel">
     <div class="card">
-      <h2>Preferred Time Frame(s)</h2>
-      <p class="muted">Choose when during the day you'd like to be prompted to journal.</p>
-      <label><input type="checkbox" value="Morning" class="timeFrameOpt" /> Morning (5am–12pm)</label>
-      <label><input type="checkbox" value="Afternoon" class="timeFrameOpt" /> Afternoon (12pm–5pm)</label>
-      <label><input type="checkbox" value="Evening" class="timeFrameOpt" /> Evening (5pm–9pm)</label>
-      <label><input type="checkbox" value="Night" class="timeFrameOpt" /> Night (9pm–5am)</label>
+      <h2 data-i18n="prefTimeFrameTitle">Preferred Time Frame(s)</h2>
+      <p class="muted" data-i18n="prefTimeFrameDesc">Choose when during the day you'd like to be prompted to journal.</p>
+      <label><input type="checkbox" value="Morning" class="timeFrameOpt" /> <span data-i18n="timeMorning">Morning</span> (5am–12pm)</label>
+      <label><input type="checkbox" value="Afternoon" class="timeFrameOpt" /> <span data-i18n="timeAfternoon">Afternoon</span> (12pm–5pm)</label>
+      <label><input type="checkbox" value="Evening" class="timeFrameOpt" /> <span data-i18n="timeEvening">Evening</span> (5pm–9pm)</label>
+      <label><input type="checkbox" value="Night" class="timeFrameOpt" /> <span data-i18n="timeNight">Night</span> (9pm–5am)</label>
     </div>
 
     <div class="card">
-      <h2>Writing Frequency</h2>
-      <p class="muted">How many entries would you like to write?</p>
+      <h2 data-i18n="writingFreqTitle">Writing Frequency</h2>
+      <p class="muted" data-i18n="writingFreqDesc">How many entries would you like to write?</p>
       <div class="freq-row">
         <input type="number" id="freqCount" min="1" max="20" value="1" />
         <select id="freqPeriod">
-          <option value="day">per day</option>
-          <option value="week">per week</option>
+          <option value="day" data-i18n="perDay">per day</option>
+          <option value="week" data-i18n="perWeek">per week</option>
         </select>
       </div>
     </div>
 
-    <button id="saveSettings" class="primary-btn">Save Settings</button>
-    <p id="settingsSaved" class="muted hidden">Settings saved.</p>
+    <div class="card">
+      <h2 data-i18n="calendarCardTitle">Journal Calendar</h2>
+      <p class="muted" data-i18n="calendarCardDesc">Pick specific days throughout the year you want to dedicate to journaling.</p>
+      <button id="openCalendarBtn" type="button" class="secondary-btn" data-i18n="calendarBtn">📅 Select Journal Days</button>
+    </div>
+
+    <button id="saveSettings" class="primary-btn" data-i18n="saveSettingsBtn">Save Settings</button>
+    <p id="settingsSaved" class="muted hidden" data-i18n="settingsSavedMsg">Settings saved.</p>
   </section>
 </main>
+
+<footer class="app-footer">
+  <span class="clock-dot"></span>
+  <span id="liveClock">--:--:--</span>
+  <span id="liveDate" class="muted"></span>
+</footer>
+
+<button id="calendarFab" type="button" class="calendar-fab" aria-label="Open journal calendar" title="Journal calendar">📅</button>
+</div>
+
+<!-- SIGN UP DIALOG -->
+<dialog id="signupDialog" class="app-dialog">
+  <form id="signupForm">
+    <h2 data-i18n="signupTitle">Create your account</h2>
+    <p class="dialog-error hidden" id="signupError"></p>
+
+    <label><span data-i18n="lblUsername">Username</span>
+      <input type="text" id="suUsername" autocomplete="username" required />
+    </label>
+    <label><span data-i18n="lblPassword">Password</span>
+      <input type="password" id="suPassword" autocomplete="new-password" required minlength="4" />
+    </label>
+    <label><span data-i18n="lblConfirmPassword">Confirm Password</span>
+      <input type="password" id="suConfirmPassword" autocomplete="new-password" required minlength="4" />
+    </label>
+    <label><span data-i18n="lblAge">Age</span>
+      <input type="number" id="suAge" min="1" max="120" required />
+    </label>
+    <p class="muted" id="ageStatusPreview"></p>
+
+    <label><span data-i18n="lblGender">Gender</span> <span class="muted" data-i18n="optionalTag">(optional)</span>
+      <select id="suGender">
+        <option value="" data-i18n="genderPreferNot">Prefer not to say</option>
+        <option value="Female" data-i18n="genderFemale">Female</option>
+        <option value="Male" data-i18n="genderMale">Male</option>
+        <option value="Non-binary" data-i18n="genderNonBinary">Non-binary</option>
+      </select>
+    </label>
+    <label><span data-i18n="lblLocation">Location</span> <span class="muted" data-i18n="optionalTag">(optional)</span>
+      <input type="text" id="suLocation" data-i18n-placeholder="locationPlaceholder" placeholder="City, Country" />
+    </label>
+
+    <fieldset class="interests-fieldset">
+      <legend data-i18n="interestsLegend">Natural interests</legend>
+      <div class="interest-grid">
+        <label><input type="checkbox" value="Reading" class="suInterest" /> <span data-i18n="interestReading">Reading</span></label>
+        <label><input type="checkbox" value="Sports" class="suInterest" /> <span data-i18n="interestSports">Sports</span></label>
+        <label><input type="checkbox" value="Music" class="suInterest" /> <span data-i18n="interestMusic">Music</span></label>
+        <label><input type="checkbox" value="Art" class="suInterest" /> <span data-i18n="interestArt">Art</span></label>
+        <label><input type="checkbox" value="Travel" class="suInterest" /> <span data-i18n="interestTravel">Travel</span></label>
+        <label><input type="checkbox" value="Cooking" class="suInterest" /> <span data-i18n="interestCooking">Cooking</span></label>
+        <label><input type="checkbox" value="Gaming" class="suInterest" /> <span data-i18n="interestGaming">Gaming</span></label>
+        <label><input type="checkbox" value="Nature" class="suInterest" /> <span data-i18n="interestNature">Nature</span></label>
+        <label><input type="checkbox" value="Technology" class="suInterest" /> <span data-i18n="interestTechnology">Technology</span></label>
+        <label><input type="checkbox" value="Fitness" class="suInterest" /> <span data-i18n="interestFitness">Fitness</span></label>
+        <label><input type="checkbox" value="Writing" class="suInterest" /> <span data-i18n="interestWriting">Writing</span></label>
+        <label><input type="checkbox" value="Movies/TV" class="suInterest" /> <span data-i18n="interestMovies">Movies/TV</span></label>
+      </div>
+    </fieldset>
+
+    <div class="dialog-actions">
+      <button type="button" id="signupCancel" class="secondary-btn" data-i18n="cancelBtn">Cancel</button>
+      <button type="submit" id="signupSubmit" class="primary-btn" data-i18n="createAccountBtn">Create Account</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- LOG IN DIALOG -->
+<dialog id="loginDialog" class="app-dialog">
+  <form id="loginForm">
+    <h2 data-i18n="loginTitle">Log in</h2>
+    <p class="dialog-error hidden" id="loginError"></p>
+    <label><span data-i18n="lblUsername">Username</span>
+      <input type="text" id="liUsername" autocomplete="username" required />
+    </label>
+    <label><span data-i18n="lblPassword">Password</span>
+      <input type="password" id="liPassword" autocomplete="current-password" required />
+    </label>
+    <div class="dialog-actions">
+      <button type="button" id="loginCancel" class="secondary-btn" data-i18n="cancelBtn">Cancel</button>
+      <button type="submit" id="loginSubmit" class="primary-btn" data-i18n="continueBtn">Continue</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- 2FA DIALOG -->
+<dialog id="twoFADialog" class="app-dialog tfa-dialog">
+  <h2 data-i18n="tfaTitle">Verify it's you</h2>
+  <p class="muted" data-i18n="tfaInstructions">Tap the numbers in order from least to greatest.</p>
+  <div id="tfaGrid" class="tfa-grid"></div>
+  <p id="tfaError" class="dialog-error hidden" data-i18n="tfaErrorMsg">Not quite — here's a new set. Try again.</p>
+  <div class="dialog-actions">
+    <button type="button" id="tfaCancel" class="secondary-btn" data-i18n="cancelBtn">Cancel</button>
+    <button type="button" id="tfaContinueBtn" class="success-btn hidden" data-i18n="tfaVerifiedBtn">✓ Verified — Continue</button>
+  </div>
+</dialog>
+
+<!-- CALENDAR DIALOG -->
+<dialog id="calendarDialog" class="app-dialog calendar-dialog">
+  <h2 data-i18n="calendarDialogTitle">Plan Your Journal Days</h2>
+  <p class="muted" data-i18n="calendarDialogDesc">Click any day to mark it as a day you'd like to dedicate to journaling. Click again to unmark.</p>
+  <div class="calendar-nav">
+    <button type="button" id="calPrevBtn" class="secondary-btn" aria-label="Previous month">‹</button>
+    <span id="calMonthYear" class="calendar-month-year"></span>
+    <button type="button" id="calNextBtn" class="secondary-btn" aria-label="Next month">›</button>
+  </div>
+  <div id="calWeekdays" class="calendar-weekdays"></div>
+  <div id="calGrid" class="calendar-grid"></div>
+  <p id="calPlannedSummary" class="muted"></p>
+  <div class="dialog-actions">
+    <button type="button" id="calCloseBtn" class="primary-btn" data-i18n="closeBtn">Close</button>
+  </div>
+</dialog>
+
+<!-- MONTHLY PLAN POPUP -->
+<dialog id="monthlyPlanDialog" class="app-dialog">
+  <h2 data-i18n="monthlyPlanTitle">Your Monthly Journaling Plan</h2>
+  <p id="monthlyPlanIntroText" class="muted"></p>
+  <div class="dialog-actions">
+    <button type="button" id="monthlyPlanChooseBtn" class="secondary-btn" data-i18n="monthlyPlanCta">Choose My Days</button>
+    <button type="button" id="monthlyPlanCloseBtn" class="primary-btn" data-i18n="gotItBtn">Got it</button>
+  </div>
+</dialog>
 
 <script src="app.js"></script>
 </body>
