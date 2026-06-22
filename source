@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daily Reflections — Journal</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="app-header">
+  <h1>Daily Reflections</h1>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="entry">Write</button>
+    <button class="tab-btn" data-tab="history">History &amp; Reflection</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </nav>
+</header>
+
+<main>
+  <!-- WRITE TAB -->
+  <section id="tab-entry" class="tab-panel active">
+    <div class="card progress-card">
+      <h2>Today's Progress</h2>
+      <p id="progressSummary">Loading...</p>
+      <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+    </div>
+
+    <div class="card">
+      <h2>New Entry</h2>
+      <p class="muted" id="timeFrameHint"></p>
+      <textarea id="entryText" placeholder="How are you feeling? What happened today?" rows="8"></textarea>
+      <button id="submitEntry" class="primary-btn">Save Entry</button>
+    </div>
+
+    <div id="resultCard" class="card hidden">
+      <h2>Reflection on this entry</h2>
+      <p>Predominant emotion detected: <strong id="resultEmotion"></strong></p>
+      <div id="resultStrategies"></div>
+    </div>
+  </section>
+
+  <!-- HISTORY TAB -->
+  <section id="tab-history" class="tab-panel">
+    <div class="card">
+      <h2>Filter</h2>
+      <label for="filterTimeFrame">Time of day:</label>
+      <select id="filterTimeFrame">
+        <option value="all">All</option>
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+        <option value="Evening">Evening</option>
+        <option value="Night">Night</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h2>Emotion Trend</h2>
+      <div id="emotionTrend" class="trend-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>Compare Two Entries</h2>
+      <div class="compare-pickers">
+        <select id="compareA"></select>
+        <select id="compareB"></select>
+      </div>
+      <div id="compareView" class="compare-view"></div>
+    </div>
+
+    <div class="card">
+      <h2>All Entries</h2>
+      <div id="entryList"></div>
+    </div>
+  </section>
+
+  <!-- SETTINGS TAB -->
+  <section id="tab-settings" class="tab-panel">
+    <div class="card">
+      <h2>Preferred Time Frame(s)</h2>
+      <p class="muted">Choose when during the day you'd like to be prompted to journal.</p>
+      <label><input type="checkbox" value="Morning" class="timeFrameOpt" /> Morning (5am–12pm)</label>
+      <label><input type="checkbox" value="Afternoon" class="timeFrameOpt" /> Afternoon (12pm–5pm)</label>
+      <label><input type="checkbox" value="Evening" class="timeFrameOpt" /> Evening (5pm–9pm)</label>
+      <label><input type="checkbox" value="Night" class="timeFrameOpt" /> Night (9pm–5am)</label>
+    </div>
+
+    <div class="card">
+      <h2>Writing Frequency</h2>
+      <p class="muted">How many entries would you like to write?</p>
+      <div class="freq-row">
+        <input type="number" id="freqCount" min="1" max="20" value="1" />
+        <select id="freqPeriod">
+          <option value="day">per day</option>
+          <option value="week">per week</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="saveSettings" class="primary-btn">Save Settings</button>
+    <p id="settingsSaved" class="muted hidden">Settings saved.</p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
